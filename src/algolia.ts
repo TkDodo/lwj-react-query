@@ -16,7 +16,7 @@ type SearchOptions = {
 export async function search<TData>({
   indexName,
   query,
-  pageParam = 0,
+  pageParam ,
   hitsPerPage,
 }: SearchOptions): Promise<{
   hits: Hit<TData>[];
@@ -28,7 +28,7 @@ export async function search<TData>({
   console.log("alogolia:search", { indexName, query, pageParam, hitsPerPage });
 
   const { hits, page, nbPages } = await index.search<TData>(query, {
-    page: pageParam,
+    page: pageParam ?? 0,
     hitsPerPage,
   });
 
