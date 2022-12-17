@@ -1,19 +1,39 @@
 import useProduct from "./useProduct";
 
-export default function ProductList() {
-  const { data, isLoading, isFetching, status } = useProduct();
+export default function ProductList({ filter }: { filter: string }) {
+  const {
+    data,
+    isLoading,
+    isFetching,
+    isPaused,
+    status,
+    isPreviousData,
+    hasNextPage,
+    fetchNextPage,
+    isFetchingNextPage,
+  } = useProduct(filter);
 
   if (isLoading) return <div className="loading">Loading...</div>;
 
+  const products = data?.pages.flatMap((page) => page.hits) ?? [];
+
   return (
     <div>
-      <div className="search-status">
-        Status: {status} {isFetching && <span>fetching...</span>}
+      <div
+        className="search-status"
+        style={{ color: isPaused ? "red" : undefined }}
+      >
+        status: {status} {isFetching && <span>fetching...</span>}
       </div>
       <div>
-        <div className="search-result">
-          {data?.hits && data.hits.length > 0 ? (
-            data.hits.map((product) => (
+        <div
+          className="search-result"
+          style={{
+            opacity: isPreviousData ? 0.5 : 1,
+          }}
+        >
+          {products.length > 0 ? (
+            products.map((product) => (
               <li key={product.objectID} className="product">
                 <span className="product-name">{product.name}</span>
                 {product.shortDescription && (
@@ -30,6 +50,10 @@ export default function ProductList() {
             ))
           ) : (
             <h3>No products found!</h3>
+          )}
+          {hasNextPage && <button onClick={() => fetchNextPage()}>more</button>}
+          {isFetchingNextPage && (
+            <div className="search-status">Fetching next page...</div>
           )}
         </div>
       </div>
