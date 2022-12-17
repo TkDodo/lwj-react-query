@@ -7,10 +7,14 @@ type Product = {
   salePrice: number;
 };
 
+const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+
 export default function useProduct() {
   return useQuery({
     queryKey: ["products"],
-    queryFn: () => {
+    queryFn: async () => {
+      await sleep(500);
+      
       return search<Product>({
         indexName: "bestbuy",
         query: "",
