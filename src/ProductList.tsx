@@ -1,7 +1,8 @@
-import useProduct from "./useProduct";
+import useProduct from './useProduct';
 
-export default function ProductList() {
-  const { data, isLoading, isFetching, status } = useProduct();
+export default function ProductList({ filter }: { filter: string }) {
+  const { data, isLoading, isFetching, isPreviousData, status } =
+    useProduct(filter);
 
   if (isLoading) return <div className="loading">Loading...</div>;
 
@@ -11,7 +12,10 @@ export default function ProductList() {
         Status: {status} {isFetching && <span>fetching...</span>}
       </div>
       <div>
-        <div className="search-result">
+        <div
+          className="search-result"
+          style={{ opacity: isPreviousData ? 0.5 : 1 }}
+        >
           {data?.hits && data.hits.length > 0 ? (
             data.hits.map((product) => (
               <li key={product.objectID} className="product">
