@@ -9,17 +9,19 @@ type Product = {
 
 const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
-export default function useProduct() {
+export default function useProduct(filter: string) {
   return useQuery({
-    queryKey: ["products"],
+    queryKey: ["products", filter],
     queryFn: async () => {
       await sleep(500);
-      
+
       return search<Product>({
         indexName: "bestbuy",
-        query: "",
+        query: filter,
         hitsPerPage: 10,
       });
     },
+    keepPreviousData: true,
+    // staleTime: 5 * 60 * 1000,
   });
 }

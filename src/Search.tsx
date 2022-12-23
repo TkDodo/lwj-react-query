@@ -13,7 +13,10 @@ export default function Search({
 
   return (
     <form onSubmit={handleSubmit}>
+      <label htmlFor="search">Search</label>
+
       <input
+        id="search"
         defaultValue={defaultValue}
         type="search"
         name="search"
