@@ -1,4 +1,4 @@
-import useProduct from './useProduct';
+import useProduct from "./useProduct";
 
 export default function ProductList({ filter }: { filter: string }) {
   const { data, isLoading, isFetching, isPreviousData, status } =

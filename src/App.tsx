@@ -1,11 +1,11 @@
-import * as React from 'react';
-import './App.css';
+import * as React from "react";
+import "./App.css";
 
-import ProductList from './ProductList';
-import Search from './Search';
+import ProductList from "./ProductList";
+import Search from "./Search";
 
 export default function App() {
-  const [filter, setFilter] = React.useState('');
+  const [filter, setFilter] = React.useState("");
 
   return (
     <div>

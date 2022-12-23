@@ -1,5 +1,5 @@
-import { useQuery } from '@tanstack/react-query';
-import { search } from './algolia';
+import { useQuery } from "@tanstack/react-query";
+import { search } from "./algolia";
 
 type Product = {
   name: string;
@@ -11,12 +11,12 @@ const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 export default function useProduct(filter: string) {
   return useQuery({
-    queryKey: ['products', filter],
+    queryKey: ["products", filter],
     queryFn: async () => {
       await sleep(500);
 
       return search<Product>({
-        indexName: 'bestbuy',
+        indexName: "bestbuy",
         query: filter,
         hitsPerPage: 10,
       });

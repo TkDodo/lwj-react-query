@@ -1,4 +1,4 @@
-import * as React from 'react';
+import * as React from "react";
 export default function Search({
   onSearch,
   defaultValue,
@@ -6,9 +6,9 @@ export default function Search({
   onSearch: (query: string) => void;
   defaultValue: string;
 }) {
-  const handleSubmit: React.ComponentProps<'form'>['onSubmit'] = (event) => {
+  const handleSubmit: React.ComponentProps<"form">["onSubmit"] = (event) => {
     event.preventDefault();
-    onSearch(new FormData(event.currentTarget).get('search') as string);
+    onSearch(new FormData(event.currentTarget).get("search") as string);
   };
 
   return (
